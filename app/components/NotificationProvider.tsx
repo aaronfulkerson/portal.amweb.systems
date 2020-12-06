@@ -6,7 +6,7 @@ import getNotifications from 'app/queries/getNotifications'
 const { Consumer, Provider } = createContext(undefined as any)
 
 const NotificationProvider: FunctionComponent = ({ children }) => {
-  const [notifications = []] = useQuery(getNotifications, undefined, {
+  const [notifications] = useQuery(getNotifications, undefined, {
     refetchInterval: 30000,
     refetchIntervalInBackground: true,
   })

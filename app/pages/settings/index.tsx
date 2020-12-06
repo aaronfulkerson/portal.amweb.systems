@@ -7,6 +7,7 @@ import { AmwebPage } from 'types'
 import getSettings from 'app/settings/queries/getSettings'
 import { ChangeEvent } from 'react'
 import updateSettings from 'app/settings/mutations/updateSettings'
+import { AppToaster } from '@components/Toaster'
 
 const Settings: AmwebPage = () => {
   const [user] = useQuery(getSettings, undefined)
@@ -18,11 +19,15 @@ const Settings: AmwebPage = () => {
         <div id="settings-form">
           <H4>Settings</H4>
           <Switch
-            checked={user?.settings.emailNotifications}
+            checked={user?.settings?.emailNotifications}
             label="Email Notifications"
             onChange={async (e: ChangeEvent<HTMLInputElement>) => {
-              await updateSettingsMutations({ emailNotifications: e.target.checked })
-              await invalidateQuery(getSettings)
+              try {
+                await updateSettingsMutations({ emailNotifications: e.target.checked })
+                await invalidateQuery(getSettings)
+              } catch ({ message }) {
+                AppToaster?.show({ message })
+              }
             }}
           />
         </div>

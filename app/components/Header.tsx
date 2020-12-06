@@ -130,7 +130,7 @@ export const Header: FunctionComponent = () => {
       </Navbar.Group>
       <Navbar.Group align={Alignment.RIGHT}>
         <NotificationConsumer>
-          {(notifications) => (
+          {(notifications = []) => (
             <Popover position={PopoverPosition.BOTTOM_RIGHT}>
               <Button
                 className={Classes.MINIMAL}
