@@ -1,0 +1,63 @@
+{
+  "name": "portal.amweb.blitz",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "blitz start",
+    "studio": "blitz db studio",
+    "build": "blitz build",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx ."
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  "prisma": {
+    "schema": "db/schema.prisma"
+  },
+  "dependencies": {
+    "@blueprintjs/core": "3.36.0",
+    "@blueprintjs/select": "3.15.0",
+    "@octokit/rest": "18.0.12",
+    "@prisma/client": "2.12.1",
+    "@stripe/react-stripe-js": "1.1.2",
+    "@stripe/stripe-js": "1.11.0",
+    "blitz": "0.27.0",
+    "final-form": "4.20.1",
+    "hasha": "5.2.2",
+    "mailgun.js": "2.0.1",
+    "nanoid": "3.1.20",
+    "normalize.css": "8.0.1",
+    "raw-body": "2.4.1",
+    "react": "0.0.0-experimental-4ead6b530",
+    "react-dom": "0.0.0-experimental-4ead6b530",
+    "react-error-boundary": "3.1.0",
+    "react-final-form": "6.5.2",
+    "sass": "1.30.0",
+    "secure-password": "4.0.0",
+    "stripe": "8.127.0",
+    "zod": "2.0.0-beta.24"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.12.1",
+    "@types/react": "17.0.0",
+    "@types/secure-password": "3.1.0",
+    "@typescript-eslint/eslint-plugin": "4.9.0",
+    "@typescript-eslint/parser": "4.9.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.15.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.21.5",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "prettier": "2.2.1",
+    "pretty-quick": "3.1.0",
+    "typescript": "4.1.2"
+  },
+  "private": true
+}

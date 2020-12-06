@@ -1,0 +1,33 @@
+.users-grid {
+  display: grid;
+  grid-gap: 0.25rem 0;
+  grid-template-columns: max-content auto auto auto auto;
+  margin-top: 1rem;
+  h6 {
+    padding-left: 0.5rem;
+    &:last-of-type {
+      padding-right: 0.5rem;
+    }
+  }
+  div {
+    align-items: center;
+    display: flex;
+    background-color: $light-gray5;
+    padding: 0.5rem;
+    &.actions {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+      justify-content: center;
+      .bp3-button {
+        margin-right: 0.25rem;
+        &:last-of-type {
+          margin: 0;
+        }
+      }
+    }
+    &.company {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+  }
+}

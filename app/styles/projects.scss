@@ -1,0 +1,132 @@
+@import '@blueprintjs/core/lib/scss/variables';
+
+.bp3-tabs {
+  height: calc(100% - #{$pt-navbar-height});
+  margin-top: 1rem;
+  .project-tab-controls {
+    align-items: center;
+    display: flex;
+    > * {
+      margin-right: 1rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .bp3-switch {
+      margin: 0;
+    }
+  }
+  .bp3-card {
+    margin-top: 1rem;
+    .bp3-progress-bar {
+      margin-top: 1rem;
+    }
+    table {
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
+}
+
+.project-overview {
+  h4 {
+    margin-top: 1rem;
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  h5 {
+    margin-top: 1rem;
+  }
+}
+
+.project-panel-card-heading {
+  align-items: center;
+  display: flex;
+  .bp3-heading {
+    margin-right: 1rem !important;
+  }
+  .panel-card-buttons {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    .bp3-button {
+      margin-right: 0.25rem;
+    }
+    .bp3-switch {
+      margin: 0;
+    }
+  }
+  .bp3-heading {
+    margin: 0;
+  }
+}
+
+.discussion-thread {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - #{$pt-icon-size-large + ($pt-grid-size * 2)});
+  .message-pane {
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: auto;
+    .message {
+      margin-left: 1rem;
+    }
+  }
+  .comment-form {
+    padding-bottom: 1rem;
+  }
+}
+
+.projects-grid {
+  grid-template-columns: max-content auto auto auto;
+}
+
+.overview-grid {
+  grid-gap: 0.25rem 0.25rem;
+  grid-template-columns: max-content auto;
+}
+
+.feature-details-grid {
+  &.admin {
+    grid-template-columns: max-content max-content auto;
+  }
+  &:not(.admin) {
+    grid-template-columns: max-content auto;
+  }
+  div & .complete {
+    justify-content: center;
+    .bp3-checkbox {
+      margin: 0;
+    }
+  }
+}
+
+.invoices-grid {
+  grid-template-columns: max-content auto max-content;
+  div {
+    &.empty {
+      background-color: $white;
+      grid-column: 1 / 3;
+      justify-content: flex-end;
+    }
+    &.total {
+      background-color: $white;
+      grid-column: 3 / 4;
+    }
+  }
+}
+
+.stripe-invoices-grid {
+  grid-template-columns: auto max-content;
+  div {
+    &.empty {
+      background-color: $white;
+      justify-content: flex-end;
+    }
+    &.total {
+      background-color: $white;
+    }
+  }
+}

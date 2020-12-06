@@ -1,0 +1,221 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --------------------------------------
+
+model Comment {
+  id                   Int                   @id @default(autoincrement())
+  feature              Feature[]
+  issue                Issue[]
+  commentNotifications CommentNotification[]
+  user                 User                  @relation(fields: [userId], references: [id])
+  userId               Int
+  createdAt            DateTime              @default(now())
+  value                String
+}
+
+model CommentNotification {
+  comment        Comment      @relation(fields: [commentId], references: [id])
+  commentId      Int
+  notification   Notification @relation(fields: [notificationId], references: [id])
+  notificationId Int
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  createdAt      DateTime     @default(now())
+  seen           Boolean      @default(false)
+
+  @@id([commentId, notificationId, userId])
+}
+
+model Company {
+  id       Int       @id @default(autoincrement())
+  projects Project[]
+  users    User[]
+  stripeId String
+  email    String    @unique
+  name     String    @unique
+}
+
+model Feature {
+  id             Int             @id @default(autoincrement())
+  comments       Comment[]
+  featureDetails FeatureDetail[]
+  project        Project         @relation(fields: [projectId], references: [id])
+  projectId      Int
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  complete       Boolean         @default(false)
+  description    String
+  title          String
+}
+
+model FeatureDetail {
+  id          Int      @id @default(autoincrement())
+  feature     Feature  @relation(fields: [featureId], references: [id])
+  featureId   Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  complete    Boolean  @default(false)
+  description String
+
+  @@unique([id, complete])
+}
+
+model Invoice {
+  id                  Int                   @id @default(autoincrement())
+  invoiceNotification InvoiceNotification[]
+  project             Project               @relation(fields: [projectId], references: [id])
+  projectId           Int
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  paid                Boolean               @default(false)
+  stripeId            String?
+
+  @@unique([stripeId])
+}
+
+model InvoiceNotification {
+  invoice        Invoice      @relation(fields: [invoiceId], references: [id])
+  invoiceId      Int
+  notification   Notification @relation(fields: [notificationId], references: [id])
+  notificationId Int
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  createdAt      DateTime     @default(now())
+  seen           Boolean      @default(false)
+
+  @@id([invoiceId, notificationId, userId])
+}
+
+model Issue {
+  id                Int                 @id @default(autoincrement())
+  comments          Comment[]
+  issueNotification IssueNotification[]
+  project           Project             @relation(fields: [projectId], references: [id])
+  projectId         Int
+  updatedAt         DateTime            @updatedAt
+  closed            Boolean             @default(false)
+  description       String
+  title             String
+}
+
+model IssueNotification {
+  issue          Issue        @relation(fields: [issueId], references: [id])
+  issueId        Int
+  notification   Notification @relation(fields: [notificationId], references: [id])
+  notificationId Int
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int
+  createdAt      DateTime     @default(now())
+  seen           Boolean      @default(false)
+
+  @@id([issueId, notificationId, userId])
+}
+
+model Notification {
+  id                   Int                   @id @default(autoincrement())
+  commentNotifications CommentNotification[]
+  invoiceNotifications InvoiceNotification[]
+  issueNotifications   IssueNotification[]
+  type                 NotificationType
+}
+
+enum NotificationType {
+  COMMENT
+  INVOICE
+  ISSUE
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  invoices    Invoice[]
+  company     Company   @relation(fields: [companyId], references: [id])
+  companyId   Int
+  features    Feature[]
+  issues      Issue[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  appUrl      String?
+  complete    Boolean   @default(false)
+  description String
+  previewUrl  String?
+  repo        String    @unique
+
+  @@unique([id, companyId])
+}
+
+model Session {
+  id                 Int       @id @default(autoincrement())
+  user               User?     @relation(fields: [userId], references: [id])
+  userId             Int?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  expiresAt          DateTime?
+  handle             String    @unique
+  hashedSessionToken String?
+  antiCSRFToken      String?
+  publicData         String?
+  privateData        String?
+}
+
+model Settings {
+  id                 Int     @id @default(autoincrement())
+  user               User    @relation(fields: [userId], references: [id])
+  userId             Int
+  emailNotifications Boolean @default(true)
+}
+
+model Token {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  expiresAt   DateTime
+  hashedToken String
+  sentTo      String
+  type        TokenType
+
+  @@unique([hashedToken, type])
+}
+
+enum TokenType {
+  CHANGE_EMAIL
+  RESET_PASSWORD
+  SIGNUP
+}
+
+model User {
+  id                   Int                   @id @default(autoincrement())
+  comments             Comment[]
+  commentNotifications CommentNotification[]
+  company              Company?              @relation(fields: [companyId], references: [id])
+  companyId            Int?
+  invoiceNotifications InvoiceNotification[]
+  issueNotifications   IssueNotification[]
+  sessions             Session[]
+  settings             Settings?
+  tokens               Token[]
+  createdAt            DateTime              @default(now())
+  defaultContact       Boolean               @default(false)
+  name                 String?
+  email                String                @unique
+  hashedPassword       String?
+  phone                String?
+  role                 Role                  @default(BASIC_CLIENT)
+}
+
+enum Role {
+  ADMIN
+  PRIVILEGED_CLIENT
+  BASIC_CLIENT
+}

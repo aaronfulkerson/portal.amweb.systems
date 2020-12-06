@@ -1,0 +1,68 @@
+@import '@blueprintjs/core/lib/scss/variables';
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+.amweb-page {
+  padding: 1rem;
+  .bp3-divider {
+    margin: 1rem 0;
+  }
+}
+
+.page-toolbar {
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  .pagination {
+    margin-right: 1rem;
+  }
+  .bp3-tab {
+    line-height: $pt-navbar-height;
+  }
+  .bp3-switch {
+    margin-bottom: 0;
+  }
+}
+
+.bp3-tab-panel {
+  width: 100%;
+}
+
+.data-grid {
+  display: grid;
+  grid-gap: 0.25rem 0;
+  margin-top: 1rem;
+  h6 {
+    padding-left: 0.5rem;
+    &:last-of-type {
+      padding-right: 0.5rem;
+    }
+  }
+  div {
+    align-items: center;
+    display: flex;
+    background-color: $light-gray5;
+    line-height: 1.5rem;
+    padding: 0.5rem;
+    &.left-border {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+    &.actions {
+      justify-content: center;
+      .bp3-button {
+        margin-right: 0.25rem;
+        &:last-of-type {
+          margin: 0;
+        }
+      }
+    }
+    &.right-border {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+  }
+}
