@@ -13,7 +13,7 @@ export const CreatePassword = z
     password: password,
     passwordConfirmation: password,
     token: z.string(),
-    type: z.enum(['RESET_PASSWORD', 'SIGNUP']),
+    type: z.enum(['CHANGE_EMAIL', 'RESET_PASSWORD', 'SIGNUP']),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords don't match",
