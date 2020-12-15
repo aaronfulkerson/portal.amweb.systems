@@ -20,10 +20,9 @@ interface IAdapter<FieldValue, T extends HTMLElement = HTMLElement> {
   input: FieldInputProps<FieldValue, T>
 }
 
-export const CheckboxAdapter: FunctionComponent<IAdapter<any> & ICheckboxProps> = ({
-  input: { onBlur, onFocus, ...input },
-  ...props
-}) => {
+export const CheckboxAdapter: FunctionComponent<
+  IAdapter<boolean, HTMLInputElement> & ICheckboxProps
+> = ({ input: { onBlur, onFocus, value, ...input }, ...props }) => {
   const {
     meta: { error, touched },
   } = useField(input.name)
@@ -37,10 +36,9 @@ export const CheckboxAdapter: FunctionComponent<IAdapter<any> & ICheckboxProps> 
   )
 }
 
-export const HTMLSelectAdapter: FunctionComponent<IAdapter<any> & IHTMLSelectProps> = ({
-  input: { multiple, ...input },
-  ...props
-}) => {
+export const HTMLSelectAdapter: FunctionComponent<
+  IAdapter<string, HTMLSelectElement> & IHTMLSelectProps
+> = ({ input: { multiple, ...input }, ...props }) => {
   const {
     meta: { error, touched },
   } = useField(input.name)
@@ -55,7 +53,7 @@ export const HTMLSelectAdapter: FunctionComponent<IAdapter<any> & IHTMLSelectPro
 }
 
 export const InputGroupAdapter: FunctionComponent<
-  IAdapter<any> & IInputGroupProps & { password?: boolean }
+  IAdapter<string, HTMLInputElement> & IInputGroupProps & { password?: boolean }
 > = ({ input, password, ...props }) => {
   const {
     meta: { error, touched },
@@ -70,10 +68,9 @@ export const InputGroupAdapter: FunctionComponent<
   )
 }
 
-export const NumericInputAdapter: FunctionComponent<IAdapter<any> & INumericInputProps> = ({
-  input,
-  ...props
-}) => {
+export const NumericInputAdapter: FunctionComponent<
+  IAdapter<string, HTMLInputElement> & INumericInputProps
+> = ({ input, ...props }) => {
   const {
     meta: { error, touched },
   } = useField(input.name)
@@ -92,10 +89,9 @@ export const NumericInputAdapter: FunctionComponent<IAdapter<any> & INumericInpu
   )
 }
 
-export const SwitchAdapter: FunctionComponent<IAdapter<any> & ISwitchProps> = ({
-  input: { onBlur, onFocus, ...input },
-  ...props
-}) => {
+export const SwitchAdapter: FunctionComponent<
+  IAdapter<boolean, HTMLInputElement> & ISwitchProps
+> = ({ input: { onBlur, onFocus, value, ...input }, ...props }) => {
   const {
     meta: { error, touched },
   } = useField(input.name)
@@ -109,10 +105,9 @@ export const SwitchAdapter: FunctionComponent<IAdapter<any> & ISwitchProps> = ({
   )
 }
 
-export const TextAreaAdapter: FunctionComponent<IAdapter<any> & ITextAreaProps> = ({
-  input,
-  ...props
-}) => {
+export const TextAreaAdapter: FunctionComponent<
+  IAdapter<string, HTMLTextAreaElement> & ITextAreaProps
+> = ({ input, ...props }) => {
   const {
     meta: { error, touched },
   } = useField(input.name)
